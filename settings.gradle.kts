@@ -12,3 +12,9 @@ plugins {
 
 rootProject.name = "todoapp"
 include("app")
+
+/*
+ * dependencyResolutionManagement {
+ *     defaultLibrariesExtension = "whateverProjectLibs.versions.toml"
+ * }
+ */
