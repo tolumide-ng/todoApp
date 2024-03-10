@@ -8,10 +8,10 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     application
+    id("org.flywaydb.flyway") version "10.0.0"
 }
 
 repositories {
-    // Use Maven Central for resolving dependencies.
     mavenCentral()
 }
 
@@ -24,6 +24,10 @@ dependencies {
     // This dependency is used by the application.
     implementation(libs.guava)
     implementation(libs.javalin)
+    implementation(libs.slf4j)
+    implementation(libs.jdbi3.core)
+    implementation(libs.jdbi3.postgres)
+    implementation(libs.jdbi3.sqlobject)
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -41,4 +45,12 @@ application {
 tasks.named<Test>("test") {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
+}
+
+
+
+flyway {
+    url = "jdbc:postgresql://localhost:5432/todoapp"
+    user = "postgres"
+    password = "postgres"
 }

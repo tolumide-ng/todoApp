@@ -11,6 +11,6 @@ public class App {
 
     public static void main(String[] args) {
         // System.out.println(new App().getGreeting());
-        var app = Javalin.create().get("/", ctx -> ctx.result("Hello World and more people>>>>>>>!")).start(7070);
+        var app = Javalin.create().get("/", ctx -> ctx.result("Hello World and more people!")).start(7070);
     }
 }
