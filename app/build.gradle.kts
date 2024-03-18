@@ -21,6 +21,9 @@ dependencies {
 
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
+    // runtimeOnly("org.flywaydb:flyway-database-postgresql:10.9.1")
+
+
     // This dependency is used by the application.
     implementation(libs.guava)
     implementation(libs.javalin)
@@ -28,6 +31,7 @@ dependencies {
     implementation(libs.jdbi3.core)
     implementation(libs.jdbi3.postgres)
     implementation(libs.jdbi3.sqlobject)
+    implementation(libs.postgresql)
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -47,10 +51,25 @@ tasks.named<Test>("test") {
     useJUnitPlatform()
 }
 
+// buildscript {
+//     dependencies {
+//         classpath 'com.h2database:h2:2.2.224'
+//     }
+// }
 
+buildscript {
+    dependencies {
+        classpath("org.flywaydb:flyway-database-postgresql:10.9.1")
+
+    }
+}
 
 flyway {
     url = "jdbc:postgresql://localhost:5432/todoapp"
-    user = "postgres"
+    user = "tolumideshopein"
     password = "postgres"
+    driver = "org.postgresql.Driver"
+    baselineOnMigrate = true
+    locations = arrayOf("filesystem:src/main/resources/db/migration/")
+    // locations = arrayOf("classpath:db/migration")
 }
