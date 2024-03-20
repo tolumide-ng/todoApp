@@ -8,14 +8,18 @@ public class DatabaseConfig {
     private static final Properties properties = new Properties();
 
     static {
+        // DatabaseConfig.class.getResourceAsStream(getDbUsername());
+        // try (InputStream input = DatabaseConfig.class.getResourceAsStream("./db.properties")) {
         try (InputStream input = DatabaseConfig.class.getClassLoader().getResourceAsStream("db.properties")) {
-            if (input == null) {
-                System.out.println("Sorry, unable to find db.properties");
-                System.exit(1);
-            }
-
+                if (input == null) {
+                    System.out.println("Sorry, unable to find db.properties");
+                    System.exit(1);
+                }
+                
+                // InputStream x = DatabaseConfig.getClassLoader().properties;
             properties.load(input);
         } catch (IOException e) {
+            System.out.println("||||||||||" + e);
             e.printStackTrace();
         }
     }
