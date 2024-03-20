@@ -51,12 +51,6 @@ tasks.named<Test>("test") {
     useJUnitPlatform()
 }
 
-// buildscript {
-//     dependencies {
-//         classpath 'com.h2database:h2:2.2.224'
-//     }
-// }
-
 buildscript {
     dependencies {
         classpath("org.flywaydb:flyway-database-postgresql:10.9.1")
@@ -72,4 +66,11 @@ flyway {
     baselineOnMigrate = true
     locations = arrayOf("filesystem:src/main/resources/db/migration/")
     // locations = arrayOf("classpath:db/migration")
+}
+
+
+tasks.register("printClasspath") {
+    doLast {
+        configurations["runtimeClasspath"].forEach { println(it) }
+    }
 }
