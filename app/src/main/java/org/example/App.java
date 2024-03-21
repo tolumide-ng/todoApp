@@ -5,10 +5,8 @@ package org.example;
 
 import io.javalin.Javalin;
 import io.javalin.config.Key;
-// import io.javalin.http.HttpStatus;
 import static io.javalin.apibuilder.ApiBuilder.*;
 import java.sql.Connection;
-// import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import org.example.controllers.FolderController;
@@ -25,17 +23,9 @@ public class App {
 
 
     public static void main(String[] args) {
-        try (Connection conn = DB.connect()) {
-            connection = conn;
-            System.out.println("Connected to the PostgreSQL database");
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }
-
-        Key<Connection> dbPool = new Key<Connection>("pool");
 
         Javalin.create(config -> {
-            config.appData(dbPool, connection);
+            // config.appData(dbPool, connection);
             config.router.mount(router -> {}).apiBuilder(() -> {
                 path(Path.Folder.FOLDERS, () -> {
                     get(FolderController::getFolders);

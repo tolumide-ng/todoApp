@@ -28,10 +28,8 @@ dependencies {
     implementation(libs.guava)
     implementation(libs.javalin)
     implementation(libs.slf4j)
-    implementation(libs.jdbi3.core)
-    implementation(libs.jdbi3.postgres)
-    implementation(libs.jdbi3.sqlobject)
     implementation(libs.postgresql)
+    implementation(libs.jackson)
 }
 
 // Apply a specific Java toolchain to ease working on different environments.

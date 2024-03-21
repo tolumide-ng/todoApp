@@ -1,12 +1,12 @@
 package org.example;
 
 import java.io.IOException;
-import java.sql.Connection;
+// import java.sql.Connection;
 import java.io.FileInputStream;
 import java.util.Properties;
 
 public class DatabaseConfig {
-    Connection connection = null;
+    // Connection connection = null;
     private static final Properties properties = new Properties();
 
     static {
