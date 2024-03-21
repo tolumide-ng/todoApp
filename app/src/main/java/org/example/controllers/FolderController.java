@@ -12,25 +12,18 @@ import org.example.DB;
 
 
 public class FolderController {
-    // public record FolderInit(String name) {}
     public record Folder(String name, UUID id) {}
-    
-    
-    static final Key<Connection> dbPool = new Key<>("pool");
 
     public static void createFolder(Context ctx) {
-        
         Folder folder = ctx.bodyValidator(Folder.class)
                 .check(data -> data.name != null && !data.name.isEmpty(), "Please provide a valid Folder name").get();
-        ResultSet rs = null;
-
 
         try (
             Connection conn = DB.connect();
             PreparedStatement st = conn.prepareStatement("INSERT INTO folder (name) VALUES(?) RETURNING *")
         ) {
             st.setString(1, folder.name);
-            rs = st.executeQuery();
+            ResultSet rs = st.executeQuery();
             rs.next();
 
             String name = rs.getString("name");
@@ -41,12 +34,32 @@ public class FolderController {
             rs.close();
             ctx.json(folder).status(200);
         } catch (SQLException e) {
-            System.out.println("||||||||||||||==========|||||||||||||||||||||||||||==========|||||||||||||");
             e.printStackTrace();
+            ctx.json("Internal Server Error").status(500);
         }
     }
 
     public static void getOneFolder(Context ctx) {
+        UUID folderId = UUID.fromString(ctx.pathParam("folderId"));
+        try (
+            Connection conn = DB.connect();
+            PreparedStatement st = conn.prepareStatement("SELECT id, name FROM folder WHERE id = ?")
+        ) {
+            st.setObject(1, folderId);
+            ResultSet rs = st.executeQuery();
+            rs.next();
+
+
+            String name = rs.getString("name");
+            UUID id = (UUID) rs.getObject("id");
+            Folder folder = new Folder(name, id);
+
+            rs.close();
+            ctx.json(folder).status(200);
+        } catch (Exception e) {
+            e.printStackTrace();
+            ctx.json("Internal Server Error").status(500);
+        }
     }
     
     public static void getFolders(Context ctx) {
