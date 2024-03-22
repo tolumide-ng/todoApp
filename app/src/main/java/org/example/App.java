@@ -4,19 +4,15 @@
 package org.example;
 
 import io.javalin.Javalin;
-import io.javalin.config.Key;
 import static io.javalin.apibuilder.ApiBuilder.*;
-import java.sql.Connection;
-import java.sql.SQLException;
 
 import org.example.controllers.FolderController;
 import org.example.controllers.TaskController;
+// import com.google.code.gson;
+
+// import com.fasterxml.jackson.core.ObjectMapper;
 
 public class App {
-
-    private static Connection  connection;
-
-
     public String getGreeting() {
         return "Hello World!";
     }

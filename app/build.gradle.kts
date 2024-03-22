@@ -11,6 +11,10 @@ plugins {
     id("org.flywaydb.flyway") version "10.0.0"
 }
 
+application {
+    mainClass = "org.example.App"
+}
+
 repositories {
     mavenCentral()
 }
@@ -20,18 +24,26 @@ dependencies {
     testImplementation(libs.junit.jupiter)
 
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-
     // runtimeOnly("org.flywaydb:flyway-database-postgresql:10.9.1")
 
-
     // This dependency is used by the application.
-    implementation(libs.guava)
+    // implementation(libs.guava)
     implementation(libs.javalin)
-    implementation(libs.jackson)
-    // https://mvnrepository.com/artifact/com.google.code.gson/gson
-    implementation("com.google.code.gson:gson:2.10.1")
     implementation(libs.slf4j)
     implementation(libs.postgresql)
+    implementation("org.json:json:20240303")
+
+    // implementation(libs.jackson)
+    // implementation(libs.jackson.databind)
+    // implementation(libs.jackson.annotations)
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations
+    implementation("com.fasterxml.jackson.core:jackson-annotations:2.17.0")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.17.0")
+    implementation("com.fasterxml.jackson.core:jackson-core:2.17.0")
+    implementation("com.google.code.gson:gson:2.10.1")
+    // implementation("org.wso2.carbon:org.wso2.carbon.core:5.3.0")
+
+
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -39,11 +51,6 @@ java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)
     }
-}
-
-application {
-    // Define the main class for the application.
-    mainClass = "org.example.App"
 }
 
 tasks.named<Test>("test") {
@@ -69,8 +76,8 @@ flyway {
 }
 
 
-tasks.register("printClasspath") {
-    doLast {
-        configurations["runtimeClasspath"].forEach { println(it) }
-    }
-}
+// tasks.register("printClasspath") {
+//     doLast {
+//         configurations["runtimeClasspath"].forEach { println(it) }
+//     }
+// }

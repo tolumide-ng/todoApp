@@ -9,8 +9,6 @@ import java.sql.PreparedStatement;
 
 import org.example.DB;
 import org.example.controllers.TaskController.Task;
-// import com.fasterxml.jackson.databind.ObjectMapper;
-
 
 public class FolderController {
     // Task task = TaskController.Task("", UUID.randomUUID());
@@ -64,7 +62,7 @@ public class FolderController {
             st.setObject(2, folderId);
             ResultSet rs = st.executeQuery();
 
-            ObjectMapp
+            // ObjectMapp
 
             while (rs.next()) {
                 String name = rs.getString("name");
@@ -74,7 +72,7 @@ public class FolderController {
 
 
             rs.close();
-            ctx.json(folder).status(200);
+            // ctx.json(folder).status(200);
         } catch (Exception e) {
             e.printStackTrace();
             ctx.json("Internal Server Error").status(500);
@@ -95,8 +93,11 @@ public class FolderController {
     }
 
     public static void updateFolder(Context ctx) {
+        // 
     }
     
-    public static void deleteFolder(Context ctx) {}
+    public static void deleteFolder(Context ctx) {
+        // 
+    }
 
 }
