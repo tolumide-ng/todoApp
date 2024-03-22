@@ -1,8 +1,11 @@
 package org.example.controllers;
 
 import io.javalin.http.Context;
+import java.util.UUID;
 
 public class TaskController {
+    public record Task(String name, UUID id, UUID parent_id) {};
+
     public static void createTask(Context ctx) {
     }
 
@@ -16,6 +19,11 @@ public class TaskController {
     }
 
     public static void deleteTask(Context ctx) {
+    }
+
+    public static Task Task(String string, UUID randomUUID) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'Task'");
     }
     
 }

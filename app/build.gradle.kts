@@ -27,9 +27,11 @@ dependencies {
     // This dependency is used by the application.
     implementation(libs.guava)
     implementation(libs.javalin)
+    implementation(libs.jackson)
+    // https://mvnrepository.com/artifact/com.google.code.gson/gson
+    implementation("com.google.code.gson:gson:2.10.1")
     implementation(libs.slf4j)
     implementation(libs.postgresql)
-    implementation(libs.jackson)
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
