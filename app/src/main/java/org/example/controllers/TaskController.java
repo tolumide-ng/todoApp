@@ -3,8 +3,10 @@ package org.example.controllers;
 import io.javalin.http.Context;
 import java.util.UUID;
 
+import org.example.DataType;
+
 public class TaskController {
-    public record Task(String name, UUID id, UUID parent_id) {};
+    public record Task(String name, UUID id, UUID parent_id, String extension, DataType type) {};
 
     public static void createTask(Context ctx) {
     }

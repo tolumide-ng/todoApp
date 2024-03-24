@@ -8,9 +8,6 @@ import static io.javalin.apibuilder.ApiBuilder.*;
 
 import org.example.controllers.FolderController;
 import org.example.controllers.TaskController;
-// import com.google.code.gson;
-
-// import com.fasterxml.jackson.core.ObjectMapper;
 
 public class App {
     public String getGreeting() {

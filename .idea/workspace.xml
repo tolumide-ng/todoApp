@@ -5,14 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c042c006-1856-4793-8fa7-5f4749fdecd1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/app/bin/main/org/example/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/bin/main/org/example/App.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bin/main/org/example/controllers/FolderController$CreateFolder.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/bin/main/org/example/controllers/FolderController$CreateFolder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bin/main/org/example/controllers/FolderController$Folder.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/bin/main/org/example/controllers/FolderController$Folder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bin/main/org/example/controllers/FolderController.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/bin/main/org/example/controllers/FolderController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/org/example/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/example/App.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/org/example/controllers/FolderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/example/controllers/FolderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/libs.versions.toml" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/libs.versions.toml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

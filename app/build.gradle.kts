@@ -37,9 +37,9 @@ dependencies {
     // implementation(libs.jackson.databind)
     // implementation(libs.jackson.annotations)
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations
-    implementation("com.fasterxml.jackson.core:jackson-annotations:2.17.0")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.17.0")
-    implementation("com.fasterxml.jackson.core:jackson-core:2.17.0")
+    implementation("com.fasterxml.jackson.core:jackson-annotations:2.16.0")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.16.0")
+    implementation("com.fasterxml.jackson.core:jackson-core:2.16.0")
     implementation("com.google.code.gson:gson:2.10.1")
     // implementation("org.wso2.carbon:org.wso2.carbon.core:5.3.0")
 
