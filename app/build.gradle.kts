@@ -32,13 +32,13 @@ dependencies {
     implementation(libs.slf4j)
     implementation(libs.postgresql)
     implementation(libs.jackson)
-    implementation(libs.jackson.databind)
-    implementation(libs.jackson.annotations)
     implementation(libs.jdbi.core)
     implementation(libs.jdbi.sqlobject)
     implementation(libs.jdbi.postgres)
+    implementation(libs.jackson.databind)
+    implementation(libs.jackson.annotations)
     implementation(libs.h2database)
-    
+
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations
     // implementation("com.fasterxml.jackson.core:jackson-annotations:2.16.0")
     // implementation("com.fasterxml.jackson.core:jackson-databind:2.16.0")

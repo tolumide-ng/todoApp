@@ -4,11 +4,14 @@
 package org.example;
 
 import io.javalin.Javalin;
+
 import static io.javalin.apibuilder.ApiBuilder.*;
 
 import org.example.controllers.FolderController;
 import org.example.controllers.HelloWorld;
 import org.example.controllers.TaskController;
+
+import org.jdbi.v3.core.Jdbi;
 
 public class App {
     public String getGreeting() {
@@ -17,8 +20,14 @@ public class App {
 
     public static void main(String[] args) {
 
+        // System.out.println("starting the server now");
+
+        Jdbi jdbi = Database.getJdbi();
+        // var dbPool = new Key<Jdbi>("db"); // update this with pools
+
         Javalin.create(config -> {
-            // config.appData(dbPool, connection);
+            config.appData(Database.dbKey(), jdbi);
+
             config.router.mount(router -> {
             }).apiBuilder(() -> {
                 path("/", () -> {
@@ -44,5 +53,6 @@ public class App {
                 });
             });
         }).start(7070);
+
     }
 }

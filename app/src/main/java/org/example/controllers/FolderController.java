@@ -9,24 +9,26 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 
-import org.example.DB;
+import org.example.Database;
 import org.example.dao.FolderDao;
 import org.example.utils.Folder;
-
-
 
 public class FolderController {
     public record CreateFolder(String name, UUID parent) {
     }
 
     public static void createFolder(Context ctx) {
+        var dbPool = ctx.appData(Database.dbKey());
+
+        // folderDao = dbPool.onDemand(null)
+
         CreateFolder folder = ctx.bodyValidator(CreateFolder.class)
                 .check(data -> data.name != null && !data.name.isEmpty(), "Please provide a valid Folder name").get();
 
         try (
-            Connection conn = DB.connect();
-            PreparedStatement st = conn.prepareStatement("INSERT INTO folder (name, parent) VALUES(?, ?) RETURNING *")
-        ) {
+                Connection conn = Database.connect();
+                PreparedStatement st = conn
+                        .prepareStatement("INSERT INTO folder (name, parent) VALUES(?, ?) RETURNING *")) {
             st.setString(1, folder.name);
             st.setObject(2, folder.parent);
             ResultSet rs = st.executeQuery();
@@ -48,19 +50,18 @@ public class FolderController {
         UUID folderId = UUID.fromString(ctx.pathParam("folderId"));
         try {
             List<Folder> folders = new FolderDao().getOneFolder(folderId);
-            
+
             ctx.json(folders).status(200);
         } catch (Exception e) {
             e.printStackTrace();
             ctx.json("Internal Server Error").status(500);
         }
     }
-    
+
     public static void getFolders(Context ctx) {
-        try(
-            Connection conn = DB.connect();
-            PreparedStatement st = conn.prepareStatement("SELECT id, name FROM folder WHERE parent = NULL")
-        ) {
+        try (
+                Connection conn = Database.connect();
+                PreparedStatement st = conn.prepareStatement("SELECT id, name FROM folder WHERE parent = NULL")) {
             ResultSet rs = st.executeQuery();
             rs.next();
         } catch (Exception e) {
@@ -70,11 +71,11 @@ public class FolderController {
     }
 
     public static void updateFolder(Context ctx) {
-        // 
+        //
     }
-    
+
     public static void deleteFolder(Context ctx) {
-        // 
+        //
     }
 
 }
