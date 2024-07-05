@@ -8,6 +8,8 @@ javalin = "6.1.3"
 slf4j = "2.0.12"
 postgresql = "42.7.3"
 jackson = "2.17.0"
+jdbi3="3.45.1"
+h2database="2.2.224"
 
 [libraries]
 guava = { module = "com.google.guava:guava", version.ref = "guava" }
@@ -18,3 +20,10 @@ slf4j = {module = 'org.slf4j:slf4j-simple', version.ref = "slf4j"}
 jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
 jackson-annotations = { module="com.fasterxml.jackson.core:jackson-annotations", version.ref="jackson" }
 jackson = { module="com.fasterxml.jackson.core:jackson-core", version.ref="jackson" }
+jdbi-core = { module = "org.jdbi:jdbi3-core", version.ref="jdbi3" }
+jdbi-sqlobject = { module = "org.jdbi:jdbi3-sqlobject", version.ref="jdbi3" }
+jdbi-postgres = { module = "org.jdbi:jdbi3-postgres", version.ref="jdbi3" }
+
+
+
+h2database = { module = "com.h2database:h2", version.ref="h2database" }

@@ -7,6 +7,7 @@ import io.javalin.Javalin;
 import static io.javalin.apibuilder.ApiBuilder.*;
 
 import org.example.controllers.FolderController;
+import org.example.controllers.HelloWorld;
 import org.example.controllers.TaskController;
 
 public class App {
@@ -14,12 +15,15 @@ public class App {
         return "Hello World!";
     }
 
-
     public static void main(String[] args) {
 
         Javalin.create(config -> {
             // config.appData(dbPool, connection);
-            config.router.mount(router -> {}).apiBuilder(() -> {
+            config.router.mount(router -> {
+            }).apiBuilder(() -> {
+                path("/", () -> {
+                    get(HelloWorld::hello);
+                });
                 path(Path.Folder.FOLDERS, () -> {
                     get(FolderController::getFolders);
                     post(FolderController::createFolder);

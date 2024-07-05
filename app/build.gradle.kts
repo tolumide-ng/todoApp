@@ -8,7 +8,7 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     application
-    id("org.flywaydb.flyway") version "10.0.0"
+    id("org.flywaydb.flyway") version "10.15.0"
 }
 
 application {
@@ -31,16 +31,19 @@ dependencies {
     implementation(libs.javalin)
     implementation(libs.slf4j)
     implementation(libs.postgresql)
-    implementation("org.json:json:20240303")
-
-    // implementation(libs.jackson)
-    // implementation(libs.jackson.databind)
-    // implementation(libs.jackson.annotations)
+    implementation(libs.jackson)
+    implementation(libs.jackson.databind)
+    implementation(libs.jackson.annotations)
+    implementation(libs.jdbi.core)
+    implementation(libs.jdbi.sqlobject)
+    implementation(libs.jdbi.postgres)
+    implementation(libs.h2database)
+    
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations
-    implementation("com.fasterxml.jackson.core:jackson-annotations:2.16.0")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.16.0")
-    implementation("com.fasterxml.jackson.core:jackson-core:2.16.0")
-    implementation("com.google.code.gson:gson:2.10.1")
+    // implementation("com.fasterxml.jackson.core:jackson-annotations:2.16.0")
+    // implementation("com.fasterxml.jackson.core:jackson-databind:2.16.0")
+    // implementation("com.fasterxml.jackson.core:jackson-core:2.16.0")
+    // implementation("com.google.code.gson:gson:2.10.1")
     // implementation("org.wso2.carbon:org.wso2.carbon.core:5.3.0")
 
 
@@ -58,6 +61,7 @@ tasks.named<Test>("test") {
     useJUnitPlatform()
 }
 
+
 buildscript {
     dependencies {
         classpath("org.flywaydb:flyway-database-postgresql:10.9.1")
@@ -66,18 +70,12 @@ buildscript {
 }
 
 flyway {
+    // postgres://{user}:{password}@{hostname}:{port}/{database-name}
+    // url = "jdbc:postgresql://tolumide:postgres@localhost:5432/todoapp"
     url = "jdbc:postgresql://localhost:5432/todoapp"
-    user = "tolumideshopein"
-    password = "postgres"
     driver = "org.postgresql.Driver"
     baselineOnMigrate = true
     locations = arrayOf("filesystem:src/main/resources/db/migration/")
     // locations = arrayOf("classpath:db/migration")
 }
 
-
-// tasks.register("printClasspath") {
-//     doLast {
-//         configurations["runtimeClasspath"].forEach { println(it) }
-//     }
-// }
