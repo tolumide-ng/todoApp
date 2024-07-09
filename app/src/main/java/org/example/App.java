@@ -22,6 +22,7 @@ public class App {
 
         // System.out.println("starting the server now");
 
+        /// use a dbPool here instead in the future
         Jdbi jdbi = Database.getJdbi();
         // var dbPool = new Key<Jdbi>("db"); // update this with pools
 

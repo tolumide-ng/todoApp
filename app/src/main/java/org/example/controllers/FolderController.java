@@ -11,14 +11,16 @@ import java.sql.PreparedStatement;
 
 import org.example.Database;
 import org.example.dao.FolderDao;
-import org.example.utils.Folder;
+import org.example.model.Folder;
+import org.jdbi.v3.core.Jdbi;
 
 public class FolderController {
     public record CreateFolder(String name, UUID parent) {
     }
 
     public static void createFolder(Context ctx) {
-        var dbPool = ctx.appData(Database.dbKey());
+        Jdbi dbPool = ctx.appData(Database.dbKey());
+        FolderDao folderDao = dbPool.onDemand(FolderDao.class);
 
         // folderDao = dbPool.onDemand(null)
 
@@ -48,14 +50,21 @@ public class FolderController {
 
     public static void getOneFolder(Context ctx) {
         UUID folderId = UUID.fromString(ctx.pathParam("folderId"));
-        try {
-            List<Folder> folders = new FolderDao().getOneFolder(folderId);
 
-            ctx.json(folders).status(200);
-        } catch (Exception e) {
-            e.printStackTrace();
-            ctx.json("Internal Server Error").status(500);
-        }
+        Jdbi dbPool = ctx.appData(Database.dbKey());
+        FolderDao folderDao = dbPool.onDemand(FolderDao.class);
+        Folder folder = folderDao.getOneFolder(folderId);
+
+        ctx.json(folder).status(200);
+
+        // try {
+        // List<Folder> folders = new FolderDao().getOneFolder(folderId);
+
+        // ctx.json(folders).status(200);
+        // } catch (Exception e) {
+        // e.printStackTrace();
+        // ctx.json("Internal Server Error").status(500);
+        // }
     }
 
     public static void getFolders(Context ctx) {

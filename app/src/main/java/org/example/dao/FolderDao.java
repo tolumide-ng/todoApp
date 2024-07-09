@@ -1,47 +1,21 @@
 package org.example.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
-import org.example.Database;
-import org.example.utils.Folder;
+import org.example.mappers.FolderMapper;
+import org.example.model.Folder;
+import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
+import org.jdbi.v3.sqlobject.customizer.BindBean;
+import org.jdbi.v3.sqlobject.statement.SqlQuery;
 
-public class FolderDao implements Helper {
-    public List<Folder> getOneFolder(UUID folderId) throws SQLException {
-        try (
-                Connection conn = Database.connect();
-                PreparedStatement st = conn.prepareStatement("""
-                            SELECT f.id AS id, f.name AS name,
-                            CASE
-                                WHEN t.parent_id = ? AND COUNT(t.id) > 0
-                                THEN ARRAY_AGG(ROW(t.name, t.id))  ELSE NULL
-                            END AS children
-                            FROM folder f
-                            LEFT JOIN task t ON f.id = t.parent_id
-                            WHERE  f.parent = ? OR f.id = ?
-                            GROUP BY f.id, t.parent_id;
-                        """)) {
-            st.setObject(1, folderId);
-            st.setObject(2, folderId);
-            ResultSet rs = st.executeQuery();
-
-            List<Folder> content = new ArrayList<>();
-
-            while (rs.next()) {
-                Folder folder = this.getFolder(rs);
-                content.add(folder);
-            }
-
-            rs.close();
-            return content;
-        } catch (SQLException e) {
-            System.err.println(e);
-            throw e;
-        }
-    }
+public interface FolderDao {
+    // c means child(child task)
+    @SqlQuery("SELECT f.id AS id, f.name AS name," +
+            "CASE WHEN c.parent_id= :id AND COUNT(c.id) > 0 THEN ARRAY_AGG(ROW(c.name, c.id)) ELSE NULL END AS children FROM folder f"
+            +
+            "LEFT JOIN task c ON f.id = c.parent_id" +
+            "WHERE f.parent = :id OR f.id = :id" +
+            "GROUP BY f.id, t.parent_id;")
+    @RegisterRowMapper(FolderMapper.class)
+    Folder getOneFolder(@BindBean("id") UUID id);
 }

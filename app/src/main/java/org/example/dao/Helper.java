@@ -4,8 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.UUID;
 
-import org.example.utils.Folder;
-import org.example.utils.Task;
+import org.example.model.Folder;
+import org.example.model.Task;
 
 public interface Helper {
     default Folder getFolder(ResultSet resultSet) throws SQLException {

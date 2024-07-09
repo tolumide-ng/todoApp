@@ -24,6 +24,4 @@ jdbi-core = { module = "org.jdbi:jdbi3-core", version.ref="jdbi3" }
 jdbi-sqlobject = { module = "org.jdbi:jdbi3-sqlobject", version.ref="jdbi3" }
 jdbi-postgres = { module = "org.jdbi:jdbi3-postgres", version.ref="jdbi3" }
 
-
-
 h2database = { module = "com.h2database:h2", version.ref="h2database" }
