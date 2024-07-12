@@ -30,7 +30,7 @@ dependencies {
     // implementation(libs.guava)
     implementation(libs.javalin)
     implementation(libs.slf4j)
-    implementation(libs.postgresql)
+    // implementation(libs.postgresql)
     implementation(libs.jackson)
     implementation(libs.jdbi.core)
     implementation(libs.jdbi.sqlobject)
@@ -38,6 +38,8 @@ dependencies {
     implementation(libs.jackson.databind)
     implementation(libs.jackson.annotations)
     implementation(libs.h2database)
+
+    implementation(libs.postgresql)
 
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations
     // implementation("com.fasterxml.jackson.core:jackson-annotations:2.16.0")

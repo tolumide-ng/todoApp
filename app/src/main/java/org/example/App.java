@@ -10,6 +10,7 @@ import static io.javalin.apibuilder.ApiBuilder.*;
 import org.example.controllers.FolderController;
 import org.example.controllers.HelloWorld;
 import org.example.controllers.TaskController;
+// import java.sql.*;
 
 import org.jdbi.v3.core.Jdbi;
 
@@ -20,11 +21,19 @@ public class App {
 
     public static void main(String[] args) {
 
-        // System.out.println("starting the server now");
+        try {
+            Class.forName("org.postgresql.Driver");
+            System.out.println(">>>>>> good here");
+        } catch (ClassNotFoundException e) {
+            System.out.println("!!!!!!!!!! NOT GOOD!!!@@@@@@");
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
         /// use a dbPool here instead in the future
         Jdbi jdbi = Database.getJdbi();
-        // var dbPool = new Key<Jdbi>("db"); // update this with pools
+        // new postgresql.
+        // var dbPool = new Key<Jdbi>("db"); // update this with poolss
 
         Javalin.create(config -> {
             config.appData(Database.dbKey(), jdbi);
