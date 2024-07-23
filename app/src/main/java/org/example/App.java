@@ -20,14 +20,11 @@ public class App {
     }
 
     public static void main(String[] args) {
-
         try {
             Class.forName("org.postgresql.Driver");
-            System.out.println(">>>>>> good here");
         } catch (ClassNotFoundException e) {
-            System.out.println("!!!!!!!!!! NOT GOOD!!!@@@@@@");
-            // TODO Auto-generated catch block
             e.printStackTrace();
+            return;
         }
 
         /// use a dbPool here instead in the future

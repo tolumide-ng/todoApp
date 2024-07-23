@@ -22,6 +22,7 @@ repositories {
 dependencies {
     // Use JUnit Jupiter for testing.
     testImplementation(libs.junit.jupiter)
+    // runtimeOnly(libs.postgresql)
 
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     // runtimeOnly("org.flywaydb:flyway-database-postgresql:10.9.1")
@@ -30,16 +31,18 @@ dependencies {
     // implementation(libs.guava)
     implementation(libs.javalin)
     implementation(libs.slf4j)
-    // implementation(libs.postgresql)
     implementation(libs.jackson)
     implementation(libs.jdbi.core)
     implementation(libs.jdbi.sqlobject)
     implementation(libs.jdbi.postgres)
+    implementation(libs.jdbi.jackson)
     implementation(libs.jackson.databind)
     implementation(libs.jackson.annotations)
     implementation(libs.h2database)
-
+    implementation(libs.hikari.cp)
     implementation(libs.postgresql)
+
+    implementation("org.jdbi:jdbi3-stringtemplate4:3.45.1")
 
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations
     // implementation("com.fasterxml.jackson.core:jackson-annotations:2.16.0")

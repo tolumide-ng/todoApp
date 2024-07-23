@@ -16,6 +16,12 @@ public class Database {
         jdbi = Jdbi.create(URL, USER, PASSWORD)
                 .installPlugin(new PostgresPlugin())
                 .installPlugin(new SqlObjectPlugin());
+        // .installPlugin(new );
+
+        // jdbi.installPlugin(new Jackson2Plugin())
+
+        System.out.println("||||||||||||++++++++++++================" + jdbi.getConfig());
+        ;
     }
 
     public static Jdbi getJdbi() {

@@ -10,6 +10,7 @@ postgresql = "42.7.3"
 jackson = "2.17.0"
 jdbi3="3.45.1"
 h2database="2.2.224"
+hikari="5.1.0"
 
 [libraries]
 guava = { module = "com.google.guava:guava", version.ref = "guava" }
@@ -23,6 +24,9 @@ jackson = { module="com.fasterxml.jackson.core:jackson-core", version.ref="jacks
 jdbi-core = { module = "org.jdbi:jdbi3-core", version.ref="jdbi3" }
 jdbi-sqlobject = { module = "org.jdbi:jdbi3-sqlobject", version.ref="jdbi3" }
 jdbi-postgres = { module = "org.jdbi:jdbi3-postgres", version.ref="jdbi3" }
+jdbi-jackson = { module = "org.jdbi:jdbi3-jackson2", version.ref="jdbi3" }
+hikari-cp = { module = "com.zaxxer:HikariCP", version.ref="hikari" }
+
 
 
 h2database = { module = "com.h2database:h2", version.ref="h2database" }
