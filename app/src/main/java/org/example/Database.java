@@ -1,5 +1,8 @@
 package org.example;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+
 import org.jdbi.v3.core.Jdbi;
 import org.jdbi.v3.postgres.PostgresPlugin;
 import org.jdbi.v3.sqlobject.SqlObjectPlugin;
@@ -13,15 +16,9 @@ public class Database {
     private static final String PASSWORD = DatabaseConfig.getDbPassword();
 
     static {
-        jdbi = Jdbi.create(URL, USER, PASSWORD)
-                .installPlugin(new PostgresPlugin())
-                .installPlugin(new SqlObjectPlugin());
-        // .installPlugin(new );
-
-        // jdbi.installPlugin(new Jackson2Plugin())
-
-        System.out.println("||||||||||||++++++++++++================" + jdbi.getConfig());
-        ;
+        jdbi = Jdbi.create("jdbc:postgresql://localhost:5432/todoapp", USER, PASSWORD)
+        .installPlugin(new PostgresPlugin())
+        .installPlugin(new SqlObjectPlugin());
     }
 
     public static Jdbi getJdbi() {
@@ -29,6 +26,6 @@ public class Database {
     }
 
     public static Key<Jdbi> dbKey() {
-        return new Key<Jdbi>("db");
+        return new Key<>("db");
     }
 }

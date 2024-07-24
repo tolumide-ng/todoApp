@@ -25,13 +25,13 @@ public class FolderController {
     }
 
     public static void createFolder(Context ctx) {
-        Jdbi dbPool = ctx.appData(Database.dbKey());
-        FolderDao folderDao = dbPool.onDemand(FolderDao.class);
+        // Jdbi dbPool = ctx.appData(Database.dbKey());
+        // FolderDao folderDao = dbPool.onDemand(FolderDao.class);
 
-        // folderDao = dbPool.onDemand(null)
+        // // folderDao = dbPool.onDemand(null)
 
-        CreateFolder folder = ctx.bodyValidator(CreateFolder.class)
-                .check(data -> data.name != null && !data.name.isEmpty(), "Please provide a valid Folder name").get();
+        // CreateFolder folder = ctx.bodyValidator(CreateFolder.class)
+        //         .check(data -> data.name != null && !data.name.isEmpty(), "Please provide a valid Folder name").get();
 
         // try (
         // Connection conn = Database.connect();
@@ -72,6 +72,7 @@ public class FolderController {
         UUID folderId = UUID.fromString(ctx.pathParam("folderId"));
 
         Jdbi dbPool = ctx.appData(Database.dbKey());
+        // Jdbi dbPool = Database.getJdbi();
         Folder folder = dbPool.withHandle(handle -> {
             FolderDao dao = handle.attach(FolderDao.class);
             return dao.getOneFolder(folderId);
