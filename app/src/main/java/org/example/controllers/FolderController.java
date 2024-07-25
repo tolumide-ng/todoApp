@@ -2,6 +2,7 @@ package org.example.controllers;
 
 import io.javalin.http.BadRequestResponse;
 import io.javalin.http.Context;
+import io.javalin.http.NotFoundResponse;
 
 import java.util.List;
 import java.util.UUID;
@@ -71,6 +72,8 @@ public class FolderController {
 
         UUID folderId = UUID.fromString(ctx.pathParam("folderId"));
 
+        System.out.println("the folderId =" + folderId);
+
         Jdbi dbPool = ctx.appData(Database.dbKey());
         // Jdbi dbPool = Database.getJdbi();
         Folder folder = dbPool.withHandle(handle -> {
@@ -78,11 +81,12 @@ public class FolderController {
             return dao.getOneFolder(folderId);
         });
 
-        // try (Handle handle = dbPool.open()) {
-        // FolderDao dao = handle.attach(FolderDao.class);
-        // Folder oneFolder = dao.getOneFolder(folderId);
-        // }
+        
+        if (folder == null) {
+            throw new NotFoundResponse("Folder not found");
+        }
 
+        System.out.println("non null " + folder);
         ctx.json(folder).status(200);
 
     }
