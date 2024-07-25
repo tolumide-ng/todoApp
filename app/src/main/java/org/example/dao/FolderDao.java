@@ -12,7 +12,7 @@ import org.jdbi.v3.sqlobject.statement.SqlQuery;
 public interface FolderDao {
     // c means child(child task)
     @SqlQuery("SELECT f.id AS id, f.name AS name, " +
-            "CASE WHEN COUNT(c.id) > 0 THEN ARRAY_AGG(ROW(c.name, c.id)) ELSE NULL END AS children " +
+            "CASE WHEN COUNT(c.id) > 0 THEN ARRAY_AGG(ROW(c.name, c.id)) ELSE ARRAY[]::record[] END AS children " +
             "FROM folder f " +
             "LEFT JOIN task c ON f.id = c.parent_id " +
             "WHERE f.parent = :id OR f.id = :id " +
