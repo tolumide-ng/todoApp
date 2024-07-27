@@ -32,7 +32,8 @@ public class FolderController {
         // // folderDao = dbPool.onDemand(null)
 
         // CreateFolder folder = ctx.bodyValidator(CreateFolder.class)
-        //         .check(data -> data.name != null && !data.name.isEmpty(), "Please provide a valid Folder name").get();
+        // .check(data -> data.name != null && !data.name.isEmpty(), "Please provide a
+        // valid Folder name").get();
 
         // try (
         // Connection conn = Database.connect();
@@ -58,17 +59,17 @@ public class FolderController {
 
     public static void getOneFolder(Context ctx) {
         System.out.println("was here in getOneFolder>>>>>");
-        try {
-            UUID folderId = UUID.fromString(ctx.pathParam("folderId"));
+        // try {
+        // UUID folderId = UUID.fromString(ctx.pathParam("folderId"));
 
-        } catch (Exception e) {
-            // ctx.json()
-            System.out.println("received an exception " + e);
-            ApiResponse response = new ApiResponse(400, "welcome");
-            ctx.json(response).status(400);
-            // ctx.json(new BadRequestResponse()).status(200);
-            return;
-        }
+        // } catch (Exception e) {
+        // // ctx.json()
+        // System.out.println("received an exception " + e);
+        // ApiResponse response = new ApiResponse(400, "welcome", "");
+        // ctx.json(response).status(400);
+        // // ctx.json(new BadRequestResponse()).status(200);
+        // return;
+        // }
 
         UUID folderId = UUID.fromString(ctx.pathParam("folderId"));
 
@@ -81,9 +82,10 @@ public class FolderController {
             return dao.getOneFolder(folderId);
         });
 
-        
         if (folder == null) {
-            throw new NotFoundResponse("Folder not found");
+            // throw new NotFoundResponse("Folder not found");
+            ctx.json(new ErrorResponse(404, "Not Found", "Folder not found"));
+            return;
         }
 
         System.out.println("non null " + folder);
