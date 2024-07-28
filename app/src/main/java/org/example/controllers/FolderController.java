@@ -58,38 +58,26 @@ public class FolderController {
     }
 
     public static void getOneFolder(Context ctx) {
-        System.out.println("was here in getOneFolder>>>>>");
-        // try {
-        // UUID folderId = UUID.fromString(ctx.pathParam("folderId"));
+        try {
+            UUID folderId = UUID.fromString(ctx.pathParam("folderId"));
+        
+            Jdbi dbPool = ctx.appData(Database.dbKey());
+            Folder folder = dbPool.withHandle(handle -> {
+                FolderDao dao = handle.attach(FolderDao.class);
+                return dao.getOneFolder(folderId);
+            });
+        
+            if (folder == null) {
+                ctx.json(new ErrorResponse(404, "Not Found", "Folder not found"));
+                return;
+            }
+        
+            ctx.json(folder).status(200);
 
-        // } catch (Exception e) {
-        // // ctx.json()
-        // System.out.println("received an exception " + e);
-        // ApiResponse response = new ApiResponse(400, "welcome", "");
-        // ctx.json(response).status(400);
-        // // ctx.json(new BadRequestResponse()).status(200);
-        // return;
-        // }
-
-        UUID folderId = UUID.fromString(ctx.pathParam("folderId"));
-
-        System.out.println("the folderId =" + folderId);
-
-        Jdbi dbPool = ctx.appData(Database.dbKey());
-        // Jdbi dbPool = Database.getJdbi();
-        Folder folder = dbPool.withHandle(handle -> {
-            FolderDao dao = handle.attach(FolderDao.class);
-            return dao.getOneFolder(folderId);
-        });
-
-        if (folder == null) {
-            // throw new NotFoundResponse("Folder not found");
-            ctx.json(new ErrorResponse(404, "Not Found", "Folder not found"));
-            return;
+        } catch (IllegalArgumentException e) {
+            ctx.json(new ErrorResponse(400, "Bad Request", "Please provide a valid folder UUID"));
         }
 
-        System.out.println("non null " + folder);
-        ctx.json(folder).status(200);
 
     }
 
