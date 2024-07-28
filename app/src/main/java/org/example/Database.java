@@ -1,7 +1,5 @@
 package org.example;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 
 import org.jdbi.v3.core.Jdbi;
 import org.jdbi.v3.postgres.PostgresPlugin;

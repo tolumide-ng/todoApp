@@ -2,9 +2,10 @@ package org.example.model;
 
 import java.util.UUID;
 
-import org.example.DataType;
 
-public record Task(String name, UUID id, UUID parent_id, String extension, DataType type) {};
+public record Task(String name, UUID id, UUID parent_id, String extension) {
+}
+
 
 // public class Task {
 //     private final String name;
