@@ -76,8 +76,8 @@ buildscript {
 
 flyway {
     // postgres://{user}:{password}@{hostname}:{port}/{database-name}
-    // url = "jdbc:postgresql://tolumide:postgres@localhost:5432/todoapp"
-    url = "jdbc:postgresql://localhost:5432/todoapp"
+    // url = "jdbc:postgresql://tolumide:postgres@localhost:5432/explorer"
+    url = "jdbc:postgresql://localhost:5432/explorer"
     driver = "org.postgresql.Driver"
     baselineOnMigrate = true
     locations = arrayOf("filesystem:src/main/resources/db/migration/")

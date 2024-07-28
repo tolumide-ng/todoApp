@@ -23,4 +23,8 @@ public interface FolderDao {
     // @UseRowMapper(FolderMapper.class)
     @RegisterRowMapper(FolderMapper.class)
     Folder getOneFolder(@Bind("id") UUID id);
+
+
+
+    // @SqlQuery("SELECT f.id, ")
 }

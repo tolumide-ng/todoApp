@@ -84,6 +84,11 @@ public class FolderController {
     public static void getFolders(Context ctx) {
         System.out.println("getFoldersgetFoldersgetFoldersgetFolders--getFoldersgetFolders>>>>>");
 
+        Jdbi dbPool = ctx.appData(Database.dbKey());
+        Folder[] folder = dbPool.withHandle(handle -> {
+            FolderDao dao = handle.attach(FolderDao.class);
+            // return dao.
+        });
         // try (
         // Connection conn = Database.connect();
         // PreparedStatement st = conn.prepareStatement("SELECT id, name FROM folder
