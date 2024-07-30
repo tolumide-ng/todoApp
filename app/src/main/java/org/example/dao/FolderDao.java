@@ -2,14 +2,14 @@ package org.example.dao;
 
 import java.util.UUID;
 
+import org.example.mappers.FolderInsert;
 import org.example.mappers.FolderMapper;
 import org.example.model.Folder;
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
-import org.jdbi.v3.sqlobject.customizer.BindBean;
+import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
-import org.jdbi.v3.sqlobject.statement.UseRowMapper;
 
 public interface FolderDao {
     // c means child(child task)
@@ -21,16 +21,12 @@ public interface FolderDao {
             "LEFT JOIN folder child_folder ON child_folder.parent = f.id " +
             "WHERE f.id = :id " +
             "GROUP BY f.id, f.name;")
-    // @UseRowMapper(FolderMapper.class)
     @RegisterRowMapper(FolderMapper.class)
     Folder getOneFolder(@Bind("id") UUID id);
 
 
-    @SqlUpdate("INSERT INTO folder (parent, name, owner) VALUES (:parent, :name, :owner) RETURNING *;")
-    @RegisterRowMapper(Folder.class)
+    @SqlUpdate("INSERT INTO folder (parent, name, owner) VALUES (:parent, :name, :owner) RETURNING *")
+    @GetGeneratedKeys
+    @RegisterRowMapper(FolderInsert.class)
     Folder createFolder(@Bind("parent") UUID parent, @Bind("name") String name, @Bind("owner") UUID owner);
-
-
-
-    // @SqlQuery("SELECT f.id, ")
 }

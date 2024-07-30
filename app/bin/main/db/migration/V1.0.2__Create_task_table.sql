@@ -5,7 +5,5 @@ CREATE TABLE task (
     parent_id UUID NOT NULL,
     name TEXT,
     status status,
-    updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
-    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP
     FOREIGN KEY (parent_id)  REFERENCES folder(id) ON DELETE CASCADE
 )

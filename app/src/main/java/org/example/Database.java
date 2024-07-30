@@ -14,7 +14,8 @@ public class Database {
     private static final String PASSWORD = DatabaseConfig.getDbPassword();
 
     static {
-        jdbi = Jdbi.create("jdbc:postgresql://localhost:5432/explorer", USER, PASSWORD)
+        // jdbi = Jdbi.create("jdbc:postgresql://localhost:5432/explorer", USER, PASSWORD)
+        jdbi = Jdbi.create("jdbc:postgresql://localhost:5432/explorer?user=postgres&password=postgres", USER, PASSWORD)
         .installPlugin(new PostgresPlugin())
         .installPlugin(new SqlObjectPlugin());
     }
