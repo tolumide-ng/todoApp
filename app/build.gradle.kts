@@ -76,8 +76,8 @@ buildscript {
 
 flyway {
     // postgres://{user}:{password}@{hostname}:{port}/{database-name}
-    // url = "jdbc:postgresql://tolumide:postgres@localhost:5432/explorer"
-    url = "jdbc:postgresql://localhost:5432/explorer?user=postgres&password=postgres"
+    url = "jdbc:postgresql://tolumide:postgres@localhost:5432/explorer"
+    // url = "jdbc:postgresql://localhost:5432/explorer?user=postgres&password=postgres"
     // url = "jdbc:postgresql://localhost:5432/explorer"
     driver = "org.postgresql.Driver"
     baselineOnMigrate = true
