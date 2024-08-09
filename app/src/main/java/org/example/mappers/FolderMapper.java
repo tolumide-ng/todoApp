@@ -16,19 +16,21 @@ public class FolderMapper implements RowMapper<Folder> {
     @Override
     public Folder map(ResultSet rs, StatementContext ctx) throws SQLException {
 
-        UUID id = UUID.fromString(rs.getString("id"));
+        String uuid = rs.getString("id");
+        UUID id = uuid == null ? null : UUID.fromString(uuid);
         String name = rs.getString("name");
 
         // Extract folders
         List<Folder> folders = new ArrayList<>();
         Array foldersArray = rs.getArray("folders");
         if (foldersArray != null) {
-            ResultSet foldResultSet = foldersArray.getResultSet();
-            while (foldResultSet.next()) {
-                Array folderArray = foldResultSet.getArray(2);
+            ResultSet folderResultSet = foldersArray.getResultSet();
+            while (folderResultSet.next()) {
+                Array folderArray = folderResultSet.getArray(2);
                 String[] folderData = folderArray.toString().split(",");
+                String folderName = folderData[0];
                 UUID folderId = folderData.length > 1 ? UUID.fromString(folderData[1]) : null;
-                folders.add(new Folder(folderData[0], folderId, new Folder[] {}, new Task[] {}));
+                folders.add(new Folder(folderName, folderId, new Folder[] {}, new Task[] {}));
             }
         }
 
