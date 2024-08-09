@@ -40,11 +40,14 @@ public class App {
                 path("/", () -> {
                     get(HelloWorld::hello);
                 });
-                path(Path.Folder.FOLDERS, () -> {
-                    get(FolderController::getFolders);
+                path("/folders", () -> {
+                    // get(FolderController::getFolders);
+                    get(FolderController::getOneFolder);
                     post(FolderController::createFolder);
+                    path("children", () -> {
+                        get(FolderController::getFolders);
+                    });
                     path("{folderId}", () -> {
-                        get(FolderController::getOneFolder);
                         patch(FolderController::updateFolder);
                         delete(FolderController::deleteFolder);
                     });

@@ -27,11 +27,11 @@ public class FolderMapper implements RowMapper<Folder> {
             while (foldResultSet.next()) {
                 Array folderArray = foldResultSet.getArray(2);
                 String[] folderData = folderArray.toString().split(",");
-                UUID folderId = UUID.fromString(folderData[1]);
+                UUID folderId = folderData.length > 1 ? UUID.fromString(folderData[1]) : null;
                 folders.add(new Folder(folderData[0], folderId, new Folder[] {}, new Task[] {}));
             }
         }
-        
+
         // Extract files
         List<Task> files = new ArrayList<>();
         Array filesArray = rs.getArray("files");
@@ -45,7 +45,6 @@ public class FolderMapper implements RowMapper<Folder> {
             }
         }
 
-       
         return new Folder(name, id, folders.toArray(new Folder[0]), files.toArray(new Task[0]));
     }
 }

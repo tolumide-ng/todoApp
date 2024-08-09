@@ -40,7 +40,9 @@ public class FolderController {
 
     public static void getOneFolder(Context ctx) {
         try {
-            UUID folderId = UUID.fromString(ctx.pathParam("folderId"));
+            // UUID folderId = UUID.fromString(ctx.pathParam("folderId"));
+            String id = ctx.queryParam("folderId");
+            UUID folderId = id == null ? null : UUID.fromString(id);
 
             Jdbi dbPool = ctx.appData(Database.dbKey());
             Folder folder = dbPool.withHandle(handle -> {
@@ -58,13 +60,37 @@ public class FolderController {
         } catch (IllegalArgumentException e) {
             ctx.json(new ErrorResponse(400, "Bad Request", "Please provide a valid folder UUID"));
         }
-
+        return;
     }
 
     public static void getFolders(Context ctx) {
         System.out.println("getFoldersgetFoldersgetFoldersgetFolders--getFoldersgetFolders>>>>>");
 
-        Jdbi dbPool = ctx.appData(Database.dbKey());
+        try {
+            String id = ctx.queryParam("folderId");
+            UUID folderId = id == null ? null : UUID.fromString(id);
+
+            Jdbi dbPool = ctx.appData(Database.dbKey());
+            // Folder[] folders = dbPool.withHandle(handle -> {
+            // FolderDao dao = handle.attach(FolderDao.class);
+            // return dao.getChildrenOf(folderId);
+            // });
+
+            // ctx.json(folders).status(200);
+
+        } catch (Exception e) {
+            System.out.println("what is the issue here????" + e);
+            ctx.json(new ErrorResponse(400, "Bad Request", "Bad Request"));
+        }
+
+        // UUID folderId = try {
+        // // return UUID.fromString(ctx.pathParam("folderId"));
+        // } catch (Exception e) {
+        // // TODO: handle exception
+        // }
+
+        // Jdbi dbPool = ctx.appData(Database.dbKey());
+
         // Folder[] folder = dbPool.withHandle(handle -> {
         // FolderDao dao = handle.attach(FolderDao.class);
         // // return dao.
