@@ -30,4 +30,8 @@ public interface FolderDao {
     @GetGeneratedKeys
     @RegisterRowMapper(FolderInsert.class)
     Folder createFolder(@Bind("parent") UUID parent, @Bind("name") String name, @Bind("owner") UUID owner);
+
+    @SqlUpdate("DELETE FROM folder WHERE id = :id")
+    @RegisterRowMapper(FolderMapper.class)
+    void deleteFolder(@Bind("id") UUID id);
 }

@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.example.Database;
 import org.example.dao.FolderDao;
 import org.example.model.Folder;
+import org.example.response.ApiResponse;
 import org.example.response.ErrorResponse;
 import org.jdbi.v3.core.Jdbi;
 
@@ -63,56 +64,27 @@ public class FolderController {
         return;
     }
 
-    public static void getFolders(Context ctx) {
-        System.out.println("getFoldersgetFoldersgetFoldersgetFolders--getFoldersgetFolders>>>>>");
-
-        try {
-            String id = ctx.queryParam("folderId");
-            UUID folderId = id == null ? null : UUID.fromString(id);
-
-            Jdbi dbPool = ctx.appData(Database.dbKey());
-            // Folder[] folders = dbPool.withHandle(handle -> {
-            // FolderDao dao = handle.attach(FolderDao.class);
-            // return dao.getChildrenOf(folderId);
-            // });
-
-            // ctx.json(folders).status(200);
-
-        } catch (Exception e) {
-            System.out.println("what is the issue here????" + e);
-            ctx.json(new ErrorResponse(400, "Bad Request", "Bad Request"));
-        }
-
-        // UUID folderId = try {
-        // // return UUID.fromString(ctx.pathParam("folderId"));
-        // } catch (Exception e) {
-        // // TODO: handle exception
-        // }
-
-        // Jdbi dbPool = ctx.appData(Database.dbKey());
-
-        // Folder[] folder = dbPool.withHandle(handle -> {
-        // FolderDao dao = handle.attach(FolderDao.class);
-        // // return dao.
-        // });
-        // try (
-        // Connection conn = Database.connect();
-        // PreparedStatement st = conn.prepareStatement("SELECT id, name FROM folder
-        // WHERE parent = NULL")) {
-        // ResultSet rs = st.executeQuery();
-        // rs.next();
-        // } catch (Exception e) {
-        // e.printStackTrace();
-        // ctx.json("Internal Server Error").status(500);
-        // }
-    }
-
     public static void updateFolder(Context ctx) {
         //
     }
 
     public static void deleteFolder(Context ctx) {
-        //
+        try {
+            UUID folderId = UUID.fromString(ctx.pathParam("folderId"));
+
+            Jdbi dbPool = ctx.appData(Database.dbKey());
+
+            dbPool.withHandle(handle -> {
+                FolderDao dao = handle.attach(FolderDao.class);
+                dao.deleteFolder(folderId);
+                return null;
+            });
+
+            ctx.json(new ApiResponse(202, "Success", "Ok")).status(202);
+            return;
+        } catch (Exception e) {
+            ctx.json(new ErrorResponse(500, "Internal Server Error", "Internal Server Error"));
+        }
     }
 
 }

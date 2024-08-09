@@ -41,15 +41,11 @@ public class App {
                     get(HelloWorld::hello);
                 });
                 path("/folders", () -> {
-                    // get(FolderController::getFolders);
                     get(FolderController::getOneFolder);
                     post(FolderController::createFolder);
-                    path("children", () -> {
-                        get(FolderController::getFolders);
-                    });
                     path("{folderId}", () -> {
-                        patch(FolderController::updateFolder);
                         delete(FolderController::deleteFolder);
+                        patch(FolderController::updateFolder);
                     });
                 });
                 path(Path.Task.TASKS, () -> {
