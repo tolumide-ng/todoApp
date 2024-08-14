@@ -41,7 +41,7 @@ public class App {
                     get(HelloWorld::hello);
                 });
                 path("/folders", () -> {
-                    get(FolderController::getOneFolder);
+                    get(FolderController::getFolder);
                     post(FolderController::createFolder);
                     path("{folderId}", () -> {
                         delete(FolderController::deleteFolder);

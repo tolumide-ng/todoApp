@@ -39,7 +39,7 @@ public class FolderController {
         }
     }
 
-    public static void getOneFolder(Context ctx) {
+    public static void getFolder(Context ctx) {
         try {
             // UUID folderId = UUID.fromString(ctx.pathParam("folderId"));
             String id = ctx.queryParam("folderId");
