@@ -20,8 +20,6 @@ public class FolderMapper implements RowMapper<Folder> {
         UUID id = uuid == null ? null : UUID.fromString(uuid);
         String name = rs.getString("name");
 
-        System.out.println("the name and the uuid " + name + " and the uuid " + id);
-
         // Extract folders
         List<Folder> folders = new ArrayList<>();
         Array foldersArray = rs.getArray("folders");

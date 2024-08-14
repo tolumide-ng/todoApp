@@ -33,6 +33,10 @@ public interface FolderDao {
     @RegisterRowMapper(FolderInsert.class)
     Folder createFolder(@Bind("parent") UUID parent, @Bind("name") String name, @Bind("owner") UUID owner);
 
+    @SqlUpdate("UPDATE fodler SET parent=:parent, name=:name WHERE id=:id")
+    @RegisterRowMapper(FolderInsert.class)
+    Folder getFolder(@Bind("parent") UUID parent, @Bind("name") String name, @Bind("id") UUID id);
+
     @SqlUpdate("DELETE FROM folder WHERE id = :id")
     @RegisterRowMapper(FolderMapper.class)
     void deleteFolder(@Bind("id") UUID id);
