@@ -4,16 +4,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.UUID;
 
-import org.example.model.Task;
+import org.example.model.File;
 import org.jdbi.v3.core.statement.StatementContext;
 
-public class TaskMapper implements org.jdbi.v3.core.mapper.RowMapper<Task> {
+public class FileMapper implements org.jdbi.v3.core.mapper.RowMapper<File> {
     @Override
-    public Task map(ResultSet rs, StatementContext ctx) throws SQLException {
+    public File map(ResultSet rs, StatementContext ctx) throws SQLException {
         String name = rs.getString("name");
         UUID id = UUID.fromString(rs.getString("id"));
         UUID parent = UUID.fromString(rs.getString("parent"));
 
-        return new Task(name, id, parent, null);
+        return new File(name, id, parent, null);
     }
 }

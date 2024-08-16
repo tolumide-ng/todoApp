@@ -8,8 +8,7 @@ import io.javalin.Javalin;
 import static io.javalin.apibuilder.ApiBuilder.*;
 
 import org.example.controllers.FolderController;
-import org.example.controllers.HelloWorld;
-import org.example.controllers.TaskController;
+import org.example.controllers.FileController;
 // import java.sql.*;
 
 import org.jdbi.v3.core.Jdbi;
@@ -29,17 +28,12 @@ public class App {
 
         /// use a dbPool here instead in the future
         Jdbi jdbi = Database.getJdbi();
-        // new postgresql.
-        // var dbPool = new Key<Jdbi>("db"); // update this with poolss
 
         Javalin.create(config -> {
             config.appData(Database.dbKey(), jdbi);
 
             config.router.mount(router -> {
             }).apiBuilder(() -> {
-                path("/", () -> {
-                    get(HelloWorld::hello);
-                });
                 path("/folders", () -> {
                     get(FolderController::getFolder);
                     post(FolderController::createFolder);
@@ -48,13 +42,13 @@ public class App {
                         delete(FolderController::deleteFolder);
                     });
                 });
-                path(Path.Task.TASKS, () -> {
-                    get(TaskController::getTasks);
-                    post(TaskController::createTask);
-                    path("{taskId}", () -> {
-                        get(TaskController::getOneTask);
-                        patch(TaskController::updateTask);
-                        delete(TaskController::deleteTask);
+                path("/files", () -> {
+                    get(FileController::getFiles);
+                    post(FileController::createFile);
+                    path("{fileId}", () -> {
+                        get(FileController::getOneFile);
+                        patch(FileController::updateFile);
+                        delete(FileController::deleteFile);
                     });
                 });
             });
