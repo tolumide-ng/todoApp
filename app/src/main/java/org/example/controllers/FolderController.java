@@ -1,5 +1,6 @@
 package org.example.controllers;
 
+import java.sql.SQLException;
 import java.util.UUID;
 
 import org.example.Database;
@@ -65,7 +66,24 @@ public class FolderController {
     }
 
     public static void updateFolder(Context ctx) {
-        //
+        try {
+            String id = ctx.queryParam("folderId");
+            UUID folderId = UUID.fromString(id);
+
+            Jdbi dbPool = ctx.appData(Database.dbKey());
+            CreateFolder data = ctx.bodyAsClass(CreateFolder.class);
+            Folder folder = dbPool.withHandle(handle -> {
+                FolderDao dao = handle.attach(FolderDao.class);
+                return dao.updateFolder(data.parent, data.name, folderId);
+            });
+
+            if (folder == null) {
+                ctx.json(new ErrorResponse(404, "Not Found", "folder not found"));
+            }
+        } catch (IllegalArgumentException e) {
+            ctx.json(new ErrorResponse(500, "Internal Server Error", null));
+        }
+        return;
     }
 
     public static void deleteFolder(Context ctx) {

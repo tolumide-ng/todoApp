@@ -43,9 +43,9 @@ public class App {
                 path("/folders", () -> {
                     get(FolderController::getFolder);
                     post(FolderController::createFolder);
+                    put(FolderController::updateFolder);
                     path("{folderId}", () -> {
                         delete(FolderController::deleteFolder);
-                        patch(FolderController::updateFolder);
                     });
                 });
                 path(Path.Task.TASKS, () -> {
