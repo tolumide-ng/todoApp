@@ -15,13 +15,17 @@ public interface FileDao {
     @SqlUpdate("INSERT INTO task (parent, name) VALUES (:parent, :name) RETURNING *")
     @GetGeneratedKeys
     @RegisterRowMapper(FileMapper.class)
-    File createTask(@Bind("parent") UUID parent, @Bind("name") String name);
+    File createFile(@Bind("parent") UUID parent, @Bind("name") String name);
+
+    @SqlQuery("SELECT id, parent, name WHERE id=:id RETURNING *")
+    @RegisterRowMapper(FileMapper.class)
+    File getFile(@Bind("id") UUID id);
 
     @SqlQuery("DELETE FROM task WHERE id = :id")
     @RegisterRowMapper(FileMapper.class)
-    void deleteTask(@Bind("id") UUID id);
+    void deleteFile(@Bind("id") UUID id);
 
     @SqlQuery("UPDATE task SET name = :name, parent = :parent WHERE id=:id RETURNING *")
     @RegisterRowMapper(FileInsert.class)
-    File updateTask(@Bind("name") String name, @Bind("id") UUID id, @Bind("parent") UUID parent);
+    File updateFile(@Bind("name") String name, @Bind("id") UUID id, @Bind("parent") UUID parent);
 }
