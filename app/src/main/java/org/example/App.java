@@ -4,12 +4,14 @@
 package org.example;
 
 import io.javalin.Javalin;
+import io.javalin.config.JavalinConfig;
+
+import java.util.function.Consumer;
 
 import static io.javalin.apibuilder.ApiBuilder.*;
 
 import org.example.controllers.FolderController;
 import org.example.controllers.FileController;
-// import java.sql.*;
 
 import org.jdbi.v3.core.Jdbi;
 
@@ -18,7 +20,7 @@ public class App {
         return "Hello World!";
     }
 
-    public static void main(String[] args) {
+    public static void config(JavalinConfig config) {
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
@@ -29,30 +31,35 @@ public class App {
         /// use a dbPool here instead in the future
         Jdbi jdbi = Database.getJdbi();
 
-        Javalin.create(config -> {
-            config.appData(Database.dbKey(), jdbi);
+        config.appData(Database.dbKey(), jdbi);
 
-            config.router.mount(router -> {
-            }).apiBuilder(() -> {
-                path("/folders", () -> {
-                    get(FolderController::getFolder);
-                    post(FolderController::createFolder);
-                    put(FolderController::updateFolder);
-                    path("{folderId}", () -> {
-                        delete(FolderController::deleteFolder);
-                    });
-                });
-                path("/files", () -> {
-                    // get(FileController::getFiles);
-                    post(FileController::createFile);
-                    path("{fileId}", () -> {
-                        get(FileController::getOneFile);
-                        patch(FileController::updateFile);
-                        delete(FileController::deleteFile);
-                    });
+        config.router.mount(router -> {
+        }).apiBuilder(() -> {
+            path("/folders", () -> {
+                get(FolderController::getFolder);
+                post(FolderController::createFolder);
+                put(FolderController::updateFolder);
+                path("{folderId}", () -> {
+                    delete(FolderController::deleteFolder);
                 });
             });
-        }).start(7070);
+            path("/files", () -> {
+                // get(FileController::getFiles);
+                post(FileController::createFile);
+                path("{fileId}", () -> {
+                    get(FileController::getOneFile);
+                    patch(FileController::updateFile);
+                    delete(FileController::deleteFile);
+                });
+            });
+        });
+    }
+
+    public static void main(String[] args) {
+
+        Javalin.create(App::config).start(7070);
 
     }
+
+    // public Javalin javalinApp() {}
 }

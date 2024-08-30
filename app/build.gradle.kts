@@ -23,7 +23,8 @@ dependencies {
     // Use JUnit Jupiter for testing.
     testImplementation(libs.junit.jupiter)
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-    implementation(libs.javalin)
+    // implementation(libs.javalin)
+    implementation(libs.javalin.bundle)
     implementation(libs.slf4j)
     implementation(libs.jackson)
     implementation(libs.jdbi.core)
@@ -38,8 +39,9 @@ dependencies {
     implementation("org.jdbi:jdbi3-stringtemplate4:3.45.1")
     
     testImplementation(libs.junit.jupiter)
-    testImplementation(libs.junit.bom)
     testRuntimeOnly(libs.junit.launcher)
+    testImplementation(libs.assertj)
+
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
