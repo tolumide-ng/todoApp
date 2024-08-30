@@ -43,7 +43,7 @@ public class App {
                     });
                 });
                 path("/files", () -> {
-                    get(FileController::getFiles);
+                    // get(FileController::getFiles);
                     post(FileController::createFile);
                     path("{fileId}", () -> {
                         get(FileController::getOneFile);

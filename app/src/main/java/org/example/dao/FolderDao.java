@@ -2,8 +2,10 @@ package org.example.dao;
 
 import java.util.UUID;
 
+import org.example.controllers.FolderController.UpdateFolder;
 import org.example.mappers.FolderInsert;
 import org.example.mappers.FolderMapper;
+import org.example.mappers.UpdateFolderMapper;
 import org.example.model.Folder;
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
@@ -33,9 +35,13 @@ public interface FolderDao {
     @RegisterRowMapper(FolderInsert.class)
     Folder createFolder(@Bind("parent") UUID parent, @Bind("name") String name, @Bind("owner") UUID owner);
 
-    @SqlUpdate("UPDATE fodler SET parent=:parent, name=:name WHERE id=:id")
-    @RegisterRowMapper(FolderInsert.class)
-    Folder updateFolder(@Bind("parent") UUID parent, @Bind("name") String name, @Bind("id") UUID id);
+    @SqlUpdate("UPDATE folder SET parent=:parent, name=:name " +
+            "WHERE id=:id AND " +
+            "(SELECT COUNT(*) FROM folder WHERE (:parent::UUID IS NULL AND parent IS NULL) OR (parent=:parent)) > 0 "
+            + " RETURNING name, parent, id")
+    @GetGeneratedKeys
+    @RegisterRowMapper(UpdateFolderMapper.class)
+    UpdateFolder updateFolder(@Bind("parent") UUID parent, @Bind("name") String name, @Bind("id") UUID id);
 
     @SqlUpdate("DELETE FROM folder WHERE id = :id")
     @RegisterRowMapper(FolderMapper.class)

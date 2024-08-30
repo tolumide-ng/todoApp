@@ -22,13 +22,7 @@ repositories {
 dependencies {
     // Use JUnit Jupiter for testing.
     testImplementation(libs.junit.jupiter)
-    // runtimeOnly(libs.postgresql)
-
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-    // runtimeOnly("org.flywaydb:flyway-database-postgresql:10.9.1")
-
-    // This dependency is used by the application.
-    // implementation(libs.guava)
     implementation(libs.javalin)
     implementation(libs.slf4j)
     implementation(libs.jackson)
@@ -41,17 +35,11 @@ dependencies {
     implementation(libs.h2database)
     implementation(libs.hikari.cp)
     implementation(libs.postgresql)
-
     implementation("org.jdbi:jdbi3-stringtemplate4:3.45.1")
-
-    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations
-    // implementation("com.fasterxml.jackson.core:jackson-annotations:2.16.0")
-    // implementation("com.fasterxml.jackson.core:jackson-databind:2.16.0")
-    // implementation("com.fasterxml.jackson.core:jackson-core:2.16.0")
-    // implementation("com.google.code.gson:gson:2.10.1")
-    // implementation("org.wso2.carbon:org.wso2.carbon.core:5.3.0")
-
-
+    
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.junit.bom)
+    testRuntimeOnly(libs.junit.launcher)
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -61,9 +49,17 @@ java {
     }
 }
 
-tasks.named<Test>("test") {
-    // Use JUnit Platform for unit tests.
-    useJUnitPlatform()
+
+tasks {
+    test {
+        useJUnitPlatform()
+        testLogging.showExceptions = true
+        testLogging.showStackTraces = true
+        // testLogging {
+        //     // events: "passed", "skipped", "failed"
+        // }
+    }
+
 }
 
 
@@ -72,7 +68,7 @@ buildscript {
         classpath("org.flywaydb:flyway-database-postgresql:10.9.1")
 
     }
-}
+} 
 
 flyway {
     // postgres://{user}:{password}@{hostname}:{port}/{database-name}

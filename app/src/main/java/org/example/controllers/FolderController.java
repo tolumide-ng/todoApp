@@ -16,6 +16,9 @@ public class FolderController {
     public record CreateFolder(UUID parent, String name, UUID owner) {
     }
 
+    public record UpdateFolder(UUID parent, UUID id, String name) {
+    }
+
     public static void createFolder(Context ctx) {
         try {
             Jdbi dbPool = ctx.appData(Database.dbKey());
@@ -41,7 +44,6 @@ public class FolderController {
 
     public static void getFolder(Context ctx) {
         try {
-            // UUID folderId = UUID.fromString(ctx.pathParam("folderId"));
             String id = ctx.queryParam("folderId");
             UUID folderId = id == null ? null : UUID.fromString(id);
 
@@ -70,15 +72,17 @@ public class FolderController {
             UUID folderId = UUID.fromString(id);
 
             Jdbi dbPool = ctx.appData(Database.dbKey());
-            CreateFolder data = ctx.bodyAsClass(CreateFolder.class);
-            Folder folder = dbPool.withHandle(handle -> {
+            UpdateFolder data = ctx.bodyAsClass(UpdateFolder.class);
+            UpdateFolder folder = dbPool.withHandle(handle -> {
                 FolderDao dao = handle.attach(FolderDao.class);
                 return dao.updateFolder(data.parent, data.name, folderId);
             });
 
             if (folder == null) {
                 ctx.json(new ErrorResponse(404, "Not Found", "folder not found"));
+                return;
             }
+            ctx.json(folder).status(200);
         } catch (IllegalArgumentException e) {
             ctx.json(new ErrorResponse(500, "Internal Server Error", null));
         }

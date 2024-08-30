@@ -11,10 +11,6 @@ import org.example.response.ErrorResponse;
 import org.jdbi.v3.core.Jdbi;
 
 public class FileController {
-    // public record File(String name, UUID id, UUID parent, String extension,
-    // DataType type) {
-    // };
-
     public record CreateFile(UUID parent, String name) {
     }
 
