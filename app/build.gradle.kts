@@ -22,7 +22,7 @@ repositories {
 dependencies {
     // Use JUnit Jupiter for testing.
     testImplementation(libs.junit.jupiter)
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    // testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     // implementation(libs.javalin)
     implementation(libs.javalin.bundle)
     implementation(libs.slf4j)
@@ -52,16 +52,33 @@ java {
 }
 
 
-tasks {
-    test {
-        useJUnitPlatform()
-        testLogging.showExceptions = true
-        testLogging.showStackTraces = true
-        // testLogging {
-        //     // events: "passed", "skipped", "failed"
-        // }
+// tasks {
+//     test {
+//         useJUnitPlatform()
+//         testLogging.showExceptions = true
+//         testLogging.showStackTraces = true
+//         // testLogging {
+//         //     // events: "passed", "skipped", "failed"
+//         // }
+//     }
+
+// }
+
+tasks.named<Test>("test") {
+    useJUnitPlatform()
+
+    maxHeapSize = "1G"
+
+    testLogging {
+        showExceptions = true
+        showStackTraces = true
+        showStandardStreams = true
+        events("passed")
     }
 
+    filter {
+        includeTestsMatching("*Test")
+    }
 }
 
 

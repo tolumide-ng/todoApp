@@ -3,6 +3,8 @@
 1. `gradlew clean build --no-build-cache`
 2. `./gradlew --refresh-dependencies`
 3. To run migrations: ` ./gradlew app:flywayMigrate`
+4. To run tests: `./gradlew test`
+5. To run tests (watch mode): `./gradlew test --continuous`
 
 ### Notes
 
