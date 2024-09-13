@@ -13,11 +13,7 @@ import io.javalin.http.Context;
 
 public class FolderController {
 
-    public record CreateFolder(UUID parent, String name, UUID owner){
-        // public CreateFolder {
-        //     this.name = Objects.requireNonNull(name, "");
-        // }
-    }
+    public record CreateFolder(UUID parent, String name, UUID owner){}
 
     public static void createFolder(Context ctx) {
         try {
@@ -34,8 +30,10 @@ public class FolderController {
                 return;
             }
     
-            ctx.json(new Folder(folder.name(), folder.id(), null, null));    
+            ctx.json(new Folder(folder.name(), folder.id(), null, null));
+            return;
         } catch (Exception e) {
+            System.out.println("the error is::::: " + e);
             ctx.json(new ErrorResponse(400, "Bad Request", "Please confirm the name is unique, and all required data are provided"));
         }
     }

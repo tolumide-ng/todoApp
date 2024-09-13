@@ -11,7 +11,7 @@ import org.jdbi.v3.core.statement.StatementContext;
 public class FolderInsert implements RowMapper<Folder> {
     @Override
     public Folder map(ResultSet rs, StatementContext ctx) throws SQLException {
-        UUID id = UUID.fromString("id");
+        UUID id = UUID.fromString(rs.getString("id"));
         String name = rs.getString("name");
 
         return new Folder(name, id, null, null);
