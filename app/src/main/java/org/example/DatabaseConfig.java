@@ -11,7 +11,16 @@ public class DatabaseConfig {
 
     static {
         try {
-            properties.load(new FileInputStream("src/main/resources/db.properties"));
+            // String appEnv = System.getProperty("APPENV");
+            String appEnv = System.getenv("APPENV");
+            System.out.println(":::::::::::::::::::::::; " + appEnv);
+            if (appEnv == "test") {
+                // properties.load(new FileInputStream("src/test/resources/db.properties")); //
+                // change back to this
+                properties.load(new FileInputStream("src/main/resources/db.properties"));
+            } else {
+                properties.load(new FileInputStream("src/main/resources/db.properties"));
+            }
             Class.forName("org.postgresql.Driver");
 
         } catch (IOException | ClassNotFoundException e) {

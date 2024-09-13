@@ -13,6 +13,7 @@ public class Database {
     private static final String PASSWORD = DatabaseConfig.getDbPassword();
 
     static {
+        // System.out.println("((((((((((((([[[[[[[[[[[[[>>>>>>>>>>>>>>>>>>>>>>>>>>>]]]]]]]]]]]]])))))))))))))");
         jdbi = Jdbi.create("jdbc:postgresql://localhost:5432/explorer", USER,
                 PASSWORD)
                 // jdbi =

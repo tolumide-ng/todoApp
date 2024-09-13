@@ -30,11 +30,11 @@ public class FolderController {
             });
 
             if (folder == null) {
-                ctx.json("Please confirm that the folder name is unique");
+                ctx.status(409).json("Please confirm that the folder name is unique");
                 return;
             }
 
-            ctx.json(new Folder(folder.name(), folder.id(), null, null));
+            ctx.status(201).json(new Folder(folder.name(), folder.id(), null, null));
             return;
         } catch (Exception e) {
             ctx.json(new ErrorResponse(400, "Bad Request",
