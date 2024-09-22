@@ -1,8 +1,7 @@
 package org.example;
 
-import java.io.IOException;
-// import java.sql.Connection;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Properties;
 
 public class DatabaseConfig {
@@ -13,11 +12,10 @@ public class DatabaseConfig {
         try {
             // String appEnv = System.getProperty("APPENV");
             String appEnv = System.getenv("APPENV");
-            System.out.println(":::::::::::::::::::::::; " + appEnv);
-            if (appEnv == "test") {
+            if ("test".equals(appEnv)) {
                 // properties.load(new FileInputStream("src/test/resources/db.properties")); //
                 // change back to this
-                properties.load(new FileInputStream("src/main/resources/db.properties"));
+                properties.load(new FileInputStream("src/main/resources/db.test.properties"));
             } else {
                 properties.load(new FileInputStream("src/main/resources/db.properties"));
             }

@@ -7,18 +7,13 @@ import org.jdbi.v3.sqlobject.SqlObjectPlugin;
 import io.javalin.config.Key;
 
 public class Database {
-    private static Jdbi jdbi;
+    private static final Jdbi jdbi;
     private static final String URL = DatabaseConfig.getDbUrl();
     private static final String USER = DatabaseConfig.getDbUsername();
     private static final String PASSWORD = DatabaseConfig.getDbPassword();
 
     static {
-        // System.out.println("((((((((((((([[[[[[[[[[[[[>>>>>>>>>>>>>>>>>>>>>>>>>>>]]]]]]]]]]]]])))))))))))))");
-        jdbi = Jdbi.create("jdbc:postgresql://localhost:5432/explorer", USER,
-                PASSWORD)
-                // jdbi =
-                // Jdbi.create("jdbc:postgresql://localhost:5432/explorer?user=postgres&password=postgres",
-                // USER, PASSWORD)
+        jdbi = Jdbi.create(URL, USER, PASSWORD)
                 .installPlugin(new PostgresPlugin())
                 .installPlugin(new SqlObjectPlugin());
     }
